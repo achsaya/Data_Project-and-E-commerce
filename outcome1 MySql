@@ -1,0 +1,139 @@
+[training@localhost ~]$ mysql -u training -p training
+Enter password: 
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.1.66 Source distribution
+
+Copyright (c) 2000, 2012, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database customer_project;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use customer_project;
+Database changed
+mysql> CREATE TABLE purchase (   userID INT AUTO_INCREMENT PRIMARY
+    -> KEY, time_s DATETIME,   amount DECIMAL(10,2) );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>  LOAD DATA INFILE '/home/training/Downloads/purchase.csv' INTO TABLE purchase FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+Query OK, 5 rows affected, 10 warnings (0.00 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 5
+
+mysql> CREATE TABLE customer (   userID INT AUTO_INCREMENT PRIMARY KEY, name varchar(255),email varchar(255));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  LOAD DATA INFILE '/home/training/Downloads/customer.csv' INTO TABLE purchase FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+Query OK, 5 rows affected, 15 warnings (0.00 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 5
+
+mysql> select * from customer;
+Empty set (0.00 sec)
+
+mysql> drop table purchase;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE purchase (   userID INT AUTO_INCREMENT PRIMARY KEY, time_s DATETIME primary key,   amount DECIMAL(10,2) );
+ERROR 1068 (42000): Multiple primary key defined
+mysql> CREATE TABLE purchase (   userID INT AUTO_INCREMENT PRIMARY KEY, time_s DATETIME ,   amount DECIMAL(10,2) );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  LOAD DATA INFILE '/home/training/Downloads/purchase.csv' INTO TABLE purchase FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+Query OK, 5 rows affected, 10 warnings (0.00 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 5
+
+mysql>  LOAD DATA INFILE '/home/training/Downloads/customer.csv' INTO TABLE customer FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+Query OK, 5 rows affected, 5 warnings (0.00 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from customer;
++--------+----------------+------------------------------+
+| userID | name           | email                        |
++--------+----------------+------------------------------+
+       | | John Doe       | john.doe@example.com"
+     | 2 | Jane Smith     | jane.smith@example.com"
+ |     3 | Robert Johnson | robert.johnson@example.com"
+     | 4 | Lisa Brown     | lisa.brown@example.com"
+|      5 | Michael Wilson | michael.wilson@example.com"  |
++--------+----------------+------------------------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from customer;
+Query OK, 5 rows affected (0.00 sec)
+
+mysql>  LOAD DATA INFILE '/home/training/Downloads/customer.csv' INTO TABLE customer FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from customer;
++--------+----------------+-----------------------------+
+| userID | name           | email                       |
++--------+----------------+-----------------------------+
+       | | John Doe       | john.doe@example.com
+     | 2 | Jane Smith     | jane.smith@example.com
+ |     3 | Robert Johnson | robert.johnson@example.com
+     | 4 | Lisa Brown     | lisa.brown@example.com
+|      5 | Michael Wilson | michael.wilson@example.com  |
++--------+----------------+-----------------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table click(userID int,time_s datetime primary key,page varchar(255));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  LOAD DATA INFILE '/home/training/Downloads/click.csv' INTO TABLE click FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 LINES;
+Query OK, 13 rows affected (0.00 sec)
+Records: 13  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select * from click;
++--------+---------------------+----------------+
+| userID | time_s              | page           |
++--------+---------------------+----------------+
+      |1 | 2023-01-01 10:00:00 | homepage
+  |    1 | 2023-01-01 10:01:00 | product_page
+      |2 | 2023-01-01 10:02:00 | homepage
+     | 2 | 2023-01-01 10:03:00 | cart_page
+      |3 | 2023-01-01 10:05:00 | homepage
+  |    3 | 2023-01-01 10:06:00 | product_page
+     | 3 | 2023-01-01 10:07:00 | cart_page
+      |4 | 2023-01-01 10:09:00 | homepage
+  |    4 | 2023-01-01 10:10:00 | product_page
+     | 4 | 2023-01-01 10:11:00 | cart_page
+ |     4 | 2023-01-01 10:12:00 | checkout_page
+      |5 | 2023-01-01 10:15:00 | homepage
+|      5 | 2023-01-01 10:16:00 | product_page   |
++--------+---------------------+----------------+
+13 rows in set (0.00 sec)
+
+mysql> select * from customer;
++--------+----------------+-----------------------------+
+| userID | name           | email                       |
++--------+----------------+-----------------------------+
+       | | John Doe       | john.doe@example.com
+     | 2 | Jane Smith     | jane.smith@example.com
+ |     3 | Robert Johnson | robert.johnson@example.com
+     | 4 | Lisa Brown     | lisa.brown@example.com
+|      5 | Michael Wilson | michael.wilson@example.com  |
++--------+----------------+-----------------------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from purchase;
++--------+---------------------+--------+
+| userID | time_s              | amount |
++--------+---------------------+--------+
+|      1 | 2023-01-01 10:05:00 | 100.00 |
+|      2 | 2023-01-01 10:08:00 | 150.00 |
+|      3 | 2023-01-01 10:09:00 | 200.00 |
+|      4 | 2023-01-01 10:13:00 | 120.00 |
+|      5 | 2023-01-01 10:17:00 |  80.00 |
++--------+---------------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> 
