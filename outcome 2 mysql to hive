@@ -1,12 +1,6 @@
 [training@localhost ~]$ hive
 Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
 Hive history file=/tmp/training/hive_job_log_training_202307171530_1591421139.txt
-hive> create table click( userID INT , d timestamp, page string);
-OK
-Time taken: 6.81 seconds
-hive> drop table click;
-OK
-Time taken: 0.896 seconds
 hive> create table click( userID INT , time_s timestamp, page string);
 OK
 Time taken: 0.089 seconds
