@@ -27,19 +27,16 @@ object customer_behaviour {
     val clickdf = spark.read.option("header", true)
       .format("csv")
       .option("path", "input/click.csv")
-      .option("maxFilesPerTrigger", 1)
       .load()
 
     val customerdf = spark.read.option("header", true)
       .format("csv")
       .option("path", "input/customer.csv")
-      .option("maxFilesPerTrigger", 1)
       .load()
 
     val purchasedf = spark.read.option("header", true)
       .format("csv")
       .option("path", "input/purchase.csv")
-      .option("maxFilesPerTrigger", 1)
       .load()
 
     clickdf.show()
